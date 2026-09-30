@@ -1,0 +1,88 @@
+<div class="support-container">
+  <!-- Header -->
+  <header class="support-header">
+    <div class="header-titles">
+      <h2>{{ labels.listTitle }}</h2>
+      <p>{{ labels.listDescription }}</p>
+    </div>
+    <ds-button variant="primary" size="sm" (click)="openNewTicketModal()">
+      <i class="fa-solid fa-plus"></i> {{ labels.newTicketBtn }}
+    </ds-button>
+  </header>
+
+  <!-- Skeleton loading -->
+  <div *ngIf="isLoading()" class="ticket-list">
+    <div class="ticket-card skeleton-card" *ngFor="let i of [1, 2, 3]">
+      <div class="skeleton-line skeleton-line--code"></div>
+      <div class="skeleton-line skeleton-line--desc"></div>
+      <div class="skeleton-line skeleton-line--date"></div>
+    </div>
+  </div>
+
+  <!-- Empty state -->
+  <div *ngIf="!isLoading() && tickets().length === 0" class="empty-state">
+    <i class="fa-solid fa-ticket"></i>
+    <p>{{ labels.emptyStateText }}</p>
+  </div>
+
+  <!-- Ticket list -->
+  <div *ngIf="!isLoading() && tickets().length > 0" class="ticket-list">
+    <div
+      class="ticket-card clay-card"
+      *ngFor="let ticket of tickets()"
+      (click)="goToTicket(ticket.id)"
+    >
+      <div class="ticket-header">
+        <span class="ticket-code">{{ ticket.code }}</span>
+        <span
+          class="badge"
+          [class.badge--open]="!ticket.closedAt"
+          [class.badge--closed]="ticket.closedAt"
+        >
+          {{ ticket.closedAt ? labels.statusClosed : labels.statusOpen }}
+        </span>
+      </div>
+      <p class="ticket-desc">{{ ticket.requestDescription }}</p>
+      <div class="ticket-footer">
+        <span class="ticket-date">
+          <i class="fa-regular fa-calendar"></i>
+          {{ ticket.openedAt | date:'dd/MM/yyyy HH:mm' }}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Novo Chamado -->
+<div class="modal-backdrop" *ngIf="isModalOpen()" (click)="closeNewTicketModal()">
+  <div class="modal-card" (click)="$event.stopPropagation()">
+    <header class="modal-header">
+      <h3>{{ labels.newTicketModalTitle }}</h3>
+      <button type="button" class="btn-close" (click)="closeNewTicketModal()">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </header>
+    <div class="modal-body">
+      <label class="field-label">{{ labels.newTicketPlaceholder }}</label>
+      <textarea
+        rows="5"
+        class="field-textarea"
+        [placeholder]="labels.newTicketPlaceholder"
+        [(ngModel)]="newTicketDescription"
+      ></textarea>
+    </div>
+    <footer class="modal-footer">
+      <ds-button variant="secondary" (click)="closeNewTicketModal()">
+        {{ labels.newTicketCancelBtn }}
+      </ds-button>
+      <ds-button
+        variant="primary"
+        [loading]="creating()"
+        [disabled]="!newTicketDescription || newTicketDescription.trim().length === 0"
+        (click)="createTicket()"
+      >
+        <i class="fa-solid fa-paper-plane"></i> {{ labels.newTicketSubmitBtn }}
+      </ds-button>
+    </footer>
+  </div>
+</div>
