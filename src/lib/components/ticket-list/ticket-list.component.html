@@ -1,4 +1,4 @@
-<div class="support-container">
+<div class="support-container" [class]="themeClass()" [ngStyle]="themeStyles()">
   <!-- Header -->
   <header class="support-header">
     <div class="header-titles">
@@ -28,7 +28,7 @@
   <!-- Ticket list -->
   <div *ngIf="!isLoading() && tickets().length > 0" class="ticket-list">
     <div
-      class="ticket-card clay-card"
+      class="ticket-card"
       *ngFor="let ticket of tickets()"
       (click)="goToTicket(ticket.id)"
     >
@@ -54,7 +54,7 @@
 </div>
 
 <!-- Modal: Novo Chamado -->
-<div class="modal-backdrop" *ngIf="isModalOpen()" (click)="closeNewTicketModal()">
+<div class="modal-backdrop" *ngIf="isModalOpen()" (click)="closeNewTicketModal()" [class]="themeClass()" [ngStyle]="themeStyles()">
   <div class="modal-card" (click)="$event.stopPropagation()">
     <header class="modal-header">
       <h3>{{ labels.newTicketModalTitle }}</h3>
@@ -72,7 +72,7 @@
       ></textarea>
     </div>
     <footer class="modal-footer">
-      <ds-button variant="secondary" (click)="closeNewTicketModal()">
+      <ds-button variant="ghost" (click)="closeNewTicketModal()">
         {{ labels.newTicketCancelBtn }}
       </ds-button>
       <ds-button

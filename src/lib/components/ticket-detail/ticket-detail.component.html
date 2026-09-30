@@ -1,54 +1,66 @@
-<div class="chat-container">
-  <!-- Loading -->
-  <div class="chat-loading" *ngIf="isLoading()">
-    <div class="spinner"></div>
-  </div>
+<div class="support-detail-page" [class]="themeClass()" [ngStyle]="themeStyles()">
+  <header class="support-detail-header">
+    <button type="button" class="btn-back" (click)="back()" aria-label="Voltar aos chamados">
+      <i class="fa-solid fa-arrow-left"></i>
+    </button>
+    <div class="header-titles">
+      <h2>{{ labels.detailTitle }}</h2>
+      <p *ngIf="ticketId">#{{ ticketId }}</p>
+    </div>
+  </header>
 
-  <!-- Empty -->
-  <div *ngIf="!isLoading() && interactions().length === 0" class="chat-empty">
-    <i class="fa-regular fa-comments"></i>
-    <p>{{ labels.emptyMessagesText }}</p>
-  </div>
+  <div class="chat-container">
+    <!-- Loading -->
+    <div class="chat-loading" *ngIf="isLoading()">
+      <div class="spinner"></div>
+    </div>
 
-  <!-- Messages -->
-  <div class="messages-list" *ngIf="!isLoading()">
-    <div
-      *ngFor="let interaction of interactions()"
-      class="message-wrapper"
-      [class.me]="isMe(interaction.userId)"
-      [class.other]="!isMe(interaction.userId)"
-    >
-      <div class="message-bubble">
-        <div class="message-header">
-          {{ isMe(interaction.userId) ? 'Você em' : 'Respondido em' }}
-          {{ interaction.interactionAt | date:'dd/MM/yyyy HH:mm' }}
-        </div>
-        <div class="message-body">
-          {{ interaction.body }}
+    <!-- Empty -->
+    <div *ngIf="!isLoading() && interactions().length === 0" class="chat-empty">
+      <i class="fa-regular fa-comments"></i>
+      <p>{{ labels.emptyMessagesText }}</p>
+    </div>
+
+    <!-- Messages -->
+    <div class="messages-list" *ngIf="!isLoading()">
+      <div
+        *ngFor="let interaction of interactions()"
+        class="message-wrapper"
+        [class.me]="isMe(interaction.userId)"
+        [class.other]="!isMe(interaction.userId)"
+      >
+        <div class="message-bubble">
+          <div class="message-header">
+            {{ isMe(interaction.userId) ? 'Você em' : 'Respondido em' }}
+            {{ interaction.interactionAt | date:'dd/MM/yyyy HH:mm' }}
+          </div>
+          <div class="message-body">
+            {{ interaction.body }}
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
-<!-- Input area -->
-<div class="chat-footer">
-  <div class="input-area">
-    <textarea
-      class="message-input"
-      rows="1"
-      [placeholder]="labels.messagePlaceholder"
-      [(ngModel)]="newMessage"
-      (keyup.enter)="sendMessage()"
-    ></textarea>
-    <ds-button
-      variant="primary"
-      size="sm"
-      [disabled]="!newMessage || newMessage.trim().length === 0"
-      [loading]="sending()"
-      (click)="sendMessage()"
-    >
-      <i class="fa-solid fa-paper-plane"></i>
-    </ds-button>
+  <!-- Input area -->
+  <div class="chat-footer">
+    <div class="input-area">
+      <textarea
+        class="message-input"
+        rows="1"
+        [placeholder]="labels.messagePlaceholder"
+        [(ngModel)]="newMessage"
+        (keyup.enter)="sendMessage()"
+      ></textarea>
+      <ds-button
+        variant="primary"
+        size="sm"
+        [disabled]="!newMessage || newMessage.trim().length === 0"
+        [loading]="sending()"
+        (click)="sendMessage()"
+      >
+        <i class="fa-solid fa-paper-plane"></i>
+      </ds-button>
+    </div>
   </div>
 </div>

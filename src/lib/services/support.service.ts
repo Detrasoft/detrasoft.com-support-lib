@@ -17,7 +17,13 @@ export class SupportService {
   private readonly config: ResolvedSupportConfig = inject(SUPPORT_CONFIG);
 
   private get apiUrl(): string {
-    return `${this.config.baseUrl}${this.config.apiPath}`;
+    const base = this.config.baseUrl.endsWith('/')
+      ? this.config.baseUrl.slice(0, -1)
+      : this.config.baseUrl;
+    const path = this.config.apiPath
+      ? (this.config.apiPath.startsWith('/') ? this.config.apiPath : `/${this.config.apiPath}`)
+      : '';
+    return `${base}${path}`;
   }
 
   getTickets(): Observable<any> {

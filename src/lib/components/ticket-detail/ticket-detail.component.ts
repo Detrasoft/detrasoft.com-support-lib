@@ -2,6 +2,7 @@ import {
   Component,
   ChangeDetectionStrategy,
   OnInit,
+  computed,
   inject,
   signal,
 } from '@angular/core';
@@ -14,6 +15,8 @@ import {
   SUPPORT_USER_SESSION,
   ResolvedSupportConfig,
   SupportUserSession,
+  buildSupportThemeStyles,
+  resolveSupportThemeClass,
 } from '../../support.config';
 import { SupportService } from '../../services/support.service';
 import { Interaction } from '../../models/support.model';
@@ -31,6 +34,9 @@ export class SupportTicketDetailComponent implements OnInit {
   private readonly config: ResolvedSupportConfig = inject(SUPPORT_CONFIG);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
+
+  readonly themeStyles = computed(() => buildSupportThemeStyles(this.config));
+  readonly themeClass = computed(() => resolveSupportThemeClass(this.config));
 
   /** Pode ser null se o app hospedeiro não fornecer via DI. */
   private readonly userSession: SupportUserSession | null =

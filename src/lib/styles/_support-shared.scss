@@ -1,0 +1,101 @@
+/*
+ * Camada visual compartilhada pelo módulo @detrasoft.com/support.
+ *
+ * Mapeia tokens `--dsp-*` com herança automática das variáveis do app
+ * hospedeiro (--note-*, --dwa-*, --dbl-*) e suporte a temas light, dark e glass.
+ */
+
+:root {
+  --dsp-primary: var(--note-primary, var(--dwa-primary, var(--dbl-primary, #3B82F6)));
+  --dsp-primary-hover: var(--note-primary-hover, var(--dwa-primary-hover, var(--dbl-primary-hover, #2563EB)));
+  --dsp-primary-strong: var(--note-primary-hover, var(--dwa-primary-strong, var(--dbl-primary-strong, #60A5FA)));
+  --dsp-primary-soft: rgba(59, 130, 246, 0.14);
+  --dsp-on-primary: #ffffff;
+
+  --dsp-radius-lg: var(--note-radius, var(--dwa-radius-lg, var(--dbl-radius-lg, 16px)));
+  --dsp-radius-md: var(--dwa-radius-md, var(--dbl-radius-md, 12px));
+  --dsp-radius-sm: 8px;
+  --dsp-radius-btn: var(--dsp-radius-md, 12px);
+
+  --dsp-surface: var(--note-surface, var(--dwa-surface, var(--dbl-surface, #ffffff)));
+  --dsp-surface-sunken: var(--note-surface-hover, var(--dwa-surface-sunken, var(--dbl-surface-sunken, #f8fafc)));
+  --dsp-surface-raised: var(--dbl-surface-raised, #f1f5f9);
+  --dsp-border: var(--note-border, var(--dwa-border, var(--dbl-border, #e2e8f0)));
+
+  --dsp-text: var(--note-text, var(--dwa-text, var(--dbl-text, #1e293b)));
+  --dsp-text-muted: var(--note-text-muted, var(--dwa-text-muted, var(--dbl-text-muted, #64748b)));
+  --dsp-text-soft: #94a3b8;
+
+  --dsp-modal-bg: var(--note-surface, var(--dwa-surface, var(--dbl-surface, #ffffff)));
+  --dsp-modal-backdrop: rgba(11, 15, 23, 0.65);
+  --dsp-input-bg: var(--note-surface-sunken, var(--dwa-surface-sunken, var(--dbl-surface-sunken, #f8fafc)));
+
+  --dsp-bubble-me-start: var(--dsp-primary, #3B82F6);
+  --dsp-bubble-me-end: var(--dsp-primary-hover, #2563EB);
+  --dsp-bubble-other: var(--dsp-surface-raised, #f1f5f9);
+
+  --dsp-shadow: var(--dwa-shadow, 0 10px 30px rgba(0, 0, 0, 0.08));
+  --dsp-shadow-lg: 0 20px 48px rgba(0, 0, 0, 0.2);
+  --dsp-transition: 180ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --dsp-surface: var(--note-surface, var(--dwa-surface, var(--dbl-surface, #131926)));
+    --dsp-surface-sunken: var(--note-surface-hover, var(--dwa-surface-sunken, var(--dbl-surface-sunken, #0B0F17)));
+    --dsp-surface-raised: #1E2738;
+    --dsp-border: var(--note-border, var(--dwa-border, var(--dbl-border, #1E293B)));
+    --dsp-text: var(--note-text, var(--dwa-text, var(--dbl-text, #F8FAFC)));
+    --dsp-text-muted: var(--note-text-muted, var(--dwa-text-muted, var(--dbl-text-muted, #94A3B8)));
+    --dsp-text-soft: #64748B;
+    --dsp-modal-bg: var(--note-surface, var(--dwa-surface, var(--dbl-surface, #131926)));
+    --dsp-input-bg: var(--note-surface-sunken, var(--dwa-surface-sunken, var(--dbl-surface-sunken, #0B0F17)));
+    --dsp-bubble-me-start: var(--dsp-primary, #3B82F6);
+    --dsp-bubble-me-end: var(--dsp-primary-hover, #2563EB);
+    --dsp-bubble-other: #1E2738;
+    --dsp-shadow: var(--dwa-shadow, 0 10px 30px rgba(0, 0, 0, 0.35));
+    --dsp-shadow-lg: 0 24px 60px rgba(0, 0, 0, 0.5);
+  }
+}
+
+body:has([class*="note-"]),
+.note-app-shell,
+html.dark,
+[data-theme="dark"],
+.dark,
+.theme-dark,
+html.theme-dark,
+.dsp-theme-dark {
+  --dsp-surface: var(--note-surface, var(--dwa-surface, var(--dbl-surface, #131926)));
+  --dsp-surface-sunken: var(--note-surface-hover, var(--dwa-surface-sunken, var(--dbl-surface-sunken, #0B0F17)));
+  --dsp-surface-raised: #1E2738;
+  --dsp-border: var(--note-border, var(--dwa-border, var(--dbl-border, #1E293B)));
+  --dsp-text: var(--note-text, var(--dwa-text, var(--dbl-text, #F8FAFC)));
+  --dsp-text-muted: var(--note-text-muted, var(--dwa-text-muted, var(--dbl-text-muted, #94A3B8)));
+  --dsp-text-soft: #64748B;
+  --dsp-primary: var(--note-primary, var(--dwa-primary, var(--dbl-primary, #3B82F6)));
+  --dsp-primary-hover: var(--note-primary-hover, var(--dwa-primary-hover, var(--dbl-primary-hover, #2563EB)));
+  --dsp-primary-strong: var(--note-primary-hover, var(--dwa-primary-strong, var(--dbl-primary-strong, #60A5FA)));
+  --dsp-primary-soft: rgba(59, 130, 246, 0.14);
+  --dsp-modal-bg: var(--note-surface, var(--dwa-surface, var(--dbl-surface, #131926)));
+  --dsp-input-bg: var(--note-surface-sunken, var(--dwa-surface-sunken, var(--dbl-surface-sunken, #0B0F17)));
+  --dsp-bubble-me-start: var(--dsp-primary, #3B82F6);
+  --dsp-bubble-me-end: var(--dsp-primary-hover, #2563EB);
+  --dsp-bubble-other: #1E2738;
+  --dsp-shadow: var(--dwa-shadow, 0 10px 30px rgba(0, 0, 0, 0.4));
+  --dsp-shadow-lg: 0 24px 60px rgba(0, 0, 0, 0.6);
+}
+
+.dsp-theme-glass {
+  --dsp-surface: var(--tabfy-card-bg, rgba(255, 255, 255, 0.78));
+  --dsp-surface-sunken: var(--tabfy-surface, rgba(255, 255, 255, 0.5));
+  --dsp-surface-raised: rgba(255, 255, 255, 0.9);
+  --dsp-modal-bg: var(--tabfy-card-bg, rgba(255, 255, 255, 0.85));
+  --dsp-input-bg: rgba(255, 255, 255, 0.6);
+  --dsp-border: var(--tabfy-card-border, rgba(255, 255, 255, 0.75));
+  --dsp-backdrop-blur: var(--tabfy-glass-blur, blur(16px));
+  --dsp-radius-lg: var(--tabfy-radius-card, 24px);
+  --dsp-radius-btn: 999px;
+  --dsp-shadow: var(--tabfy-card-shadow, 0 10px 24px rgba(0, 0, 0, 0.04));
+  --dsp-shadow-lg: 0 20px 48px rgba(0, 0, 0, 0.15);
+}

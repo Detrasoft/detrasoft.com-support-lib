@@ -1,6 +1,6 @@
 {
   "name": "@detrasoft.com/support",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Módulo de chamados com tickets e suporte para produtos Detrasoft. Consome o detrasoft-core-api e o design system @detrasoft.com/detra-ng.",
   "keywords": [
     "detrasoft",
@@ -10,6 +10,9 @@
     "helpdesk"
   ],
   "license": "UNLICENSED",
+  "scripts": {
+    "build": "ng-packagr -p ng-package.json"
+  },
   "sideEffects": false,
   "peerDependencies": {
     "@angular/common": ">=18.0.0 <21.0.0",

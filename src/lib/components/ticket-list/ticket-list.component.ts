@@ -2,6 +2,7 @@ import {
   Component,
   ChangeDetectionStrategy,
   OnInit,
+  computed,
   inject,
   signal,
 } from '@angular/core';
@@ -9,7 +10,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ButtonComponent, ConfirmDialogComponent } from '@detrasoft.com/detra-ng';
-import { SUPPORT_CONFIG, ResolvedSupportConfig } from '../../support.config';
+import {
+  SUPPORT_CONFIG,
+  ResolvedSupportConfig,
+  buildSupportThemeStyles,
+  resolveSupportThemeClass,
+} from '../../support.config';
 import { SupportService } from '../../services/support.service';
 import { Ticket } from '../../models/support.model';
 
@@ -25,6 +31,9 @@ export class SupportTicketListComponent implements OnInit {
   private readonly supportService = inject(SupportService);
   private readonly config: ResolvedSupportConfig = inject(SUPPORT_CONFIG);
   private readonly router = inject(Router);
+
+  readonly themeStyles = computed(() => buildSupportThemeStyles(this.config));
+  readonly themeClass = computed(() => resolveSupportThemeClass(this.config));
 
   readonly tickets = signal<Ticket[]>([]);
   readonly isLoading = signal(true);
